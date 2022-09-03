@@ -1,0 +1,40 @@
+{% extends 'blog1/osnova.html' %}
+{% block title %} PRETRAGA {% endblock %}
+{% block content %}
+<h1>PRETRAGA POSTOVA</h1><br/>
+{% if trazeno %}
+<h1> Tragali ste za :</h1>
+{{trazeno}}
+<br>
+Rezultat pretrage: <br/>
+{{rezultat}}
+{% if rezultat %}
+        {% for r in rezultat %}
+        {{r}}
+        {{r.autor}}<br/>
+        {{r.naslov}}<br/>
+        {{r.datum}}<br/>
+        {{r.sadrzaj|safe}}<br/>
+        {% endfor %}
+{%else%}
+    <h3>Nema rezulatata za trazenu vrednost.</h3>{%endif%}
+
+{% else %}
+<h1>Niste uneli trazenu vrednost.</h1>
+{% endif %}
+
+<h3>X: </h3>
+{{x}}<br/>
+id:{{x.id}} - {{x.first_name}} - {{x.last_name}} - {{x.email}}<br/>
+<br/>
+<h3>Y: </h3>
+<!--prikazi sve postove koje je kreirao autor <x>-->
+{% for item in y %}
+        {{item}}<br/>
+        <!--umetnucemo link koji ce citaoca odvesti do detaljnog pregleda posta.
+        Za to nam je potreban <id> koji jedinstveno identifikuje post. On je sadrzan u zapisu <item>-->
+        {{item.naslov}} - {{item.kategorija}} - {{item.datum}}<a href="{% url 'detaljna' item.id %}">KLIKNITE OVDE ZA CEO POST</a> <br/>
+{% endfor %}
+
+
+{% endblock %}

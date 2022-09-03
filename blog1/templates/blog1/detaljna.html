@@ -1,0 +1,98 @@
+{% extends 'blog1/osnova.html' %}
+{%block title%}DETALJNA{%endblock%}
+<body>
+{% block content %}
+
+
+<h1>STRANICA DETALJNOG PRIKAZA POSTA</h1>
+{{object_list}}<br/>
+{{object.naslov}}<br/>
+{{object.autor}}<br/>
+{{object.autor.ime}}<br/>
+{{object.autor.prezime}}<br/>
+
+{% if object.header_slika %}
+    Ovo if...then mora se dodati jer ce, u protivnom, aplikacija vratiti poruku o gresci,
+    t.j. da nije nasla fajl.
+        <img src="{{object.header_slika.url}}" width="100" height="100">
+{% endif %}
+
+{{object.sadrzaj|safe}}<br/>
+<a href="{% url 'pocetna' %}">NAZAD NA POCETNU</a>
+<br/><br/>
+<br/>
+{% if user.is_authenticated == True %}
+<form action="{% url 'lajkuj-post' object.pk %}" method="POST">
+    {% csrf_token %}
+
+    {% if lajkovano == True %}
+        <button type="submit", name="post_id", value="{{object.id}}", class="btn btn-danger btn-sm">Dislike</button>
+    {% else %}
+        <button type="submit", name="post_id", value="{{object.id}}", class="btn btn-success btn-sm">Like</button>
+    {%endif %}
+    <br/>
+    Ukupno lajkova: {{ukupno_lajkova}}
+    <br/><br>
+    <a href="{% url 'novi-komentar' object.pk user %}">Napisite komentar</a>
+    <h3>Komentari clanova: </h3><br/>
+  {% if object.komentari.all  %}
+<a href="">Dodaj komentar</a><br/><br/>
+{% for x in object.komentari.all %}
+{{x}}</br>
+<strong>{{x.ime_komentatora}} - {{x.datum_komentara}}</strong> je komentarisao:<br/>
+{{x.sadrzaj}}<br/><br/>
+    Broj lajkova za ovaj komentar: {{x.komentari.blogcomments.
+    <br/><br/>
+    <div class="card">
+  <div class="header">
+    Korisnik {{x.ime_komentatora}} je napisao:
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{x.datum_komentara}}</h5>
+    <p class="card-text">{{x.sadrzaj}}</p>
+    Ukupno lajkova: {{request.session.ul}}
+      <br/>
+    <a class="btn btn-success" href="{% url 'lajkuj-komentar' x.id object.pk%}">I LIKE</a>
+  </div>
+</div>
+{%endfor%}
+{%else%}
+
+Nema komentara za ovaj post.
+{%endif%}
+
+</form>
+
+
+
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-2">
+        {% if object.autor.korisnickiprofil.profil_slika %}
+      <img src="{{object.autor.korisnickiprofil.profil_slika.url}}" class="img-fluid rounded-start" alt="..." width="100" height="100">
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{object.naslov}}</h5>
+          <p class="card-text">napomena: ovde mora na engleskom {{object.autor}} - {{object.autor.first_name}} {{object.autor.last_name}}<br/>
+            Ovde ne mora:  {{object.autor.korisnickiprofil.bio}}</p>
+          <p><a href="{% url 'prikazi-profilnu-stranicu' object.autor.korisnickiprofil.id%}">Profilna stranica</a></p>
+          <p><a href="{{object.autor.korisnickiprofil.linkedin_url}}">LinkedIn</a> | <a href="{{object.autor.korisnickiprofil.fb_url}}">FB</a> | <a href="{{object.autor.korisnickiprofil.twitter_url}}">Twitter</a></p>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{%endif%}
+<br/><br/>
+
+{%endblock%}
+</body>
+</html>

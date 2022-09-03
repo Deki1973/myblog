@@ -1,0 +1,29 @@
+{%extends 'blog1/osnova.html'%}
+{%block title%}NOVI POST{%endblock%}
+<body>
+{%block content%}
+{% if user.is_authenticated %}
+<div class="container" align="left">
+<h1>STRANICA ZA KREIRANJE I DODAVANJE NOVOG POSTA.</h1>
+<div class="form-group">
+<form method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    {{form.as_p}}
+    {{form.media}}
+    <button class="btn btn-success">POSALJI</button>
+
+</form>
+</div>
+
+<script>
+    var i="{{user.id}}";
+    var n="{{user.username}}";
+    document.getElementById("test_elder").value=i;
+</script>
+    </div>
+{%else%}
+<h1>MORATE BITI PRIJAVLJENI NA SISTEM.</h1>
+{%endif%}
+{%endblock%}
+</body>
+</html>

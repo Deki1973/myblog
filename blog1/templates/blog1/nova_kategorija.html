@@ -1,0 +1,21 @@
+{%extends 'blog1/osnova.html'%}
+{%block title%}NOVA KATEGORIJA{%endblock%}
+<body>
+{%block content%}
+{% if user.is_authenticated %}
+<div class="container" align="left">
+<h1>STRANICA ZA KREIRANJE I DODAVANJE NOVE KATEGORIJE ZA POSTOVE.</h1>
+<div class="form-group">
+<form method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button class="btn btn-success">POSALJI</button>
+</form>
+</div>
+</div>
+{%else%}
+<h1>MORATE BITI PRIJAVLJENI NA SISTEM.</h1>
+{%endif%}
+{%endblock%}
+</body>
+</html>

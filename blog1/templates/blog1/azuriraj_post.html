@@ -1,0 +1,34 @@
+{% extends 'blog1/osnova.html' %}
+{%block title%}AZUIRANJE POSTA{%endblock%}
+{%block content%}
+{%if user.is_authenticated %}
+{% if user.id == object.autor.id %}
+
+<h1>AZURIRANJE POSTA</h1>
+<br/><br/>
+<div class="container">
+<div class="form-group">
+    {{user.id}}
+    {{object.autor.id}}
+<form method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    {{form.media}}
+    <button class="btn btn-primary">SNIMI</button>
+</form>
+    <script>
+        var i="{{user.id}}";
+        var u="{{user.username}}";
+        document.getElementById("test_elder_upd").value=i;
+
+    </script>
+</div>
+</div>
+{%else%}
+<h1>{{user.id}}, {{object.autor.id}}</h1>
+<h1 align="center">Samo autor posta sme da ga azurira! Pristup odbijen!</h1>
+{%endif%}
+{%else%}
+<h1 align="center">MORATE BITI PRIJAVLJENI NA SISTEM</h1>
+{%endif%}
+{%endblock%}

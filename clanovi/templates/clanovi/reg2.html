@@ -1,0 +1,28 @@
+{% extends 'blog1/osnova.html' %}
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reg2</title>
+</head>
+<body>
+<h1>REG2</h1><br/>
+{{a}}
+</body>
+</html>
+-->
+
+
+{% block title %} REGISTRACIJA {% endblock %}
+{% block content %}
+<h1>REGISTRACIJA NOVOG CLANA</h1>
+<br/><br/>
+<div class="form-group">
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button class="btn btn-success">ENTER</button>
+    </form>
+</div>
+
+{% endblock %}

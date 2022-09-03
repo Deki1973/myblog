@@ -1,0 +1,40 @@
+{% extends 'blog1/osnova.html' %}
+{% block title %}AZURIRANJE KORISNIKOVOG PROFILA{%endblock%}
+{% block content %}
+
+<br/><br/>
+{{user.korisnickiprofil.bio}}<br/>
+<!--{{user.korisnickiprofil.profil_slika.url}}<br/>-->
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{user.korisnickiprofil.profil_slika.url}}" class="rounded-circle" alt="100">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+        <p class="card-text">{{user.korisnickiprofil.bio}}</p>
+          <a href="{{user.korisnickiprofil.linkedin_url}}">LinkedIn</a>
+          <a href="{{user.korisnickiprofil.fb_url}}">FB</a>
+          <a href="{{user.korisnickiprofil.twitter_url}}">twitter</a>
+
+
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<img src="{{ user.korisnickiprofil.profil_slika.url }}" width=100 height=100 class="rounded-circle"><br/>
+
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-secondary">SNIMI PROMENE</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'blog1/osnova.html' %}
+{% block title %} KATEGORIJE - SPISAK {% endblock %}
+{%block content%}
+
+<h1> Blog kategorije </h1>
+
+{% for x in kateg_spisak %}
+
+{{x}} - <a class="dropdown-item" href="{% url 'kategorija' x.naziv %}">{{x.naziv}}</a>
+{% endfor %}
+
+
+
+{% endblock %}

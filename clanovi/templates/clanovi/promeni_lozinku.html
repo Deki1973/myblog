@@ -1,0 +1,16 @@
+{% extends 'blog1/osnova.html' %}
+{% block title%} PROMENA LOZINKE {%endblock%}
+{% block content %}
+<h1>PROMENA LOZINKE</h1>
+<br/><br/>
+<div class="container" align="left">
+<div class="form-gorup">
+  <form action="" method="POST" >
+    {% csrf_token %}
+      {{ form.as_p }}
+    <br/>
+    <input type="submit" value="Submit" class="btn btn-secondary">
+  </form>
+</div>
+</div>
+{% endblock %}

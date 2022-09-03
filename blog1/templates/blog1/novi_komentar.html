@@ -1,0 +1,17 @@
+{% extends 'blog1/osnova.html' %}
+{%block title%}NOVI KOMENTAR{%endblock%}
+{%block content%}
+{% if user.is_authenticated %}
+<h1>Vas komentar:
+</h1>
+<div class="form-group">
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button class="btn btn-success">POSALJI</button>
+    </form>
+</div>
+{%else%}
+<h5>Morate biti prijavljeni kako bi ostavili komentar. Pristup odbijen.</h5>
+{%endif%}
+{%endblock%}

@@ -1,0 +1,26 @@
+{% extends 'blog1/osnova.html' %}
+{% block title%} PRIJAVA {%endblock%}
+{% block content %}
+<div class="container" align="center">
+<h1>PRIJAVA KORISNIKA NA SISTEM</h1>
+<br/><br/>
+
+
+<form action="" method="POST" >
+  {% csrf_token %}
+  <div class="mb-3">
+    <!--<label for="exampleInputEmail1" class="form-label">Username</label>-->
+      <label class="form-label">Korisnicko ime</label>
+    <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+    <!--<label for="exampleInputPassword1" class="form-label">Password</label>-->
+      <label class="form-label">Lozinka</label>
+    <input type="password" class="form-control" name="password">
+  </div>
+    <input type="submit" value="Submit" class="btn btn-secondary">
+
+
+  </form>
+  <a href="{% url 'reg2' %}">Novi korisnik? Kliknite na ovaj link za registraciju:</a>
+
+</div>
+{% endblock %}

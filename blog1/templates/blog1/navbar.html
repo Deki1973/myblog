@@ -1,0 +1,119 @@
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #008000">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'pocetna' %}">Pocetna</a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link active" aria-current="page" href="{% url 'novi-post' %}">Novi post</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'odjava' %}">Odjava</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active" href="{% url 'nova-kategorija' %}">Nova kategorija</a>
+        </li>
+        {%else%}
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'registracija' %}">Registracija</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'prijava' %}">Prijava</a>
+        </li>
+        {%endif%}
+
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'kategorije-spisak' %}">Po kategorijama</a>
+        </li>
+        <!--<li class="nav-item">
+          <a class="nav-link active" href="#">Link</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" href="#">Link</a>
+        </li>
+   -->
+   <!--     day 32 Ako ne stavimo ovaj uslov, aplikacija ce vratiti poruku o gresci-->
+
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'promena-lozinke' %}">Promena Lozinke</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active" href="{% url 'reg2' %}">Registracija</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'azuriranje-profila' %}">Azuriranje kor. profila</a>
+        </li>
+         <li class="nav-item dropdown">
+          <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownKategorije" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Postovi po kategorijama
+          </a>-->
+
+
+
+
+        <!-- Day 15, 2. deo. resavanje problema nestajanja padajuceg menija sa kategorijama kada
+        se ode sa pocetne stranice na neku drugu.-->
+
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {% if user.is_authenticated %}
+              Prijavljen: [{{user.username}}]
+            {%else%}
+              Niste prijavljeni
+            {%endif%}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if user.is_authenticated == True %}
+              <li><a class="dropdown-item" href="{% url 'odjava' %}">Odjava</a></li>
+            <!--Pitanje: da li korisnik ima kreiranu profilnu stranicu. Ako nema, na meniju treba
+            da izadje stavka koja ce ga usmeriti na kreiranje njegove profilne stranice.
+            Ako vec ima, na padajucem meniju treba da se pojave stavke koje ce mu omoguciti da
+            pregleda i azurira svoju profilnu stranicu.-->
+            {% if user.korisnickiprofil %}
+              <li><a class="dropdown-iten" href="#">IMA PROFILNU STRANICU</a> </li>
+              <li><a class="dropdown-item" href="{% url 'edit-profile-page' user.korisnickiprofil.id %}">Edit Profile Page</a></li>
+              <li><a class="dropdown-item" href="{% url 'prikazi-profilnu-stranicu' user.korisnickiprofil.id %}">Prikazi profilnu</a></li>
+            {%else%}
+              <li><a class="dropdown-iten" href="#">NEMA PROFILNU STRANICU</a> </li>
+            <li><a class="dropdown-item" href="{% url 'create-profile-page' %}">Create profle page</a></li>
+            {%endif%}
+
+
+              <li><a class="dropdown-item" href="{% url 'nova-kategorija' %}">Nova kategorija</a></li>
+
+
+            {% else %}
+
+              <li><a class="dropdown-item" href="{% url 'prijava' %}">Prijava</a></li>
+              <li><a class="dropdown-item" href="{% url 'reg2' %}">Registracija</a></li>
+
+            {%endif%}
+            <li><hr class="dropdown-divider"></li>
+
+
+     <!--       <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+          </ul>
+        </li>
+
+
+
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" method="POST" action="{% url 'pretraga-postova' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched1" id="searched1" >
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

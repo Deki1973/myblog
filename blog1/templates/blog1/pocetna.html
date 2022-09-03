@@ -1,0 +1,123 @@
+{% extends 'blog1/osnova.html' %}
+
+{%block title%}GENERIC TITLE{%endblock%}
+<body xmlns="http://www.w3.org/1999/html">
+
+{%block content%}
+<!--3333333333333333
+ewrwerwer
+324234234-->
+<hr>
+<h1 align="center">Dobrodosli korisnik {{user}}</h1>
+<h1 align="center">Postovi</h1>
+<!--iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii-->
+<!--sa bootstrapom -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="?page=1">PRVA</a></li>
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-disabled="false">PRETHODNA</a></li>
+      {% else %}
+        <li class="page-item" ><a class="page-link bg-secondary text-danger" href="?page=1" aria-disabled="true">PRETHODNA</a></li>
+
+      {% endif %}
+      <!--
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        -->
+       <li class="page-item">
+           <a class="page-link">Stranica {{ page_obj.number }} od ukupno {{ page_obj.paginator.num_pages }}.</a>
+        </li>
+
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-disabled="false">SLEDECA</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link bg-secondary text-danger" href="?page={{ page_obj.paginator.num_pages }}" aria-disabled="true">SLEDECA</a></li>
+      {% endif %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ZADNJA</a></li>
+  </ul>
+</nav>
+<!--ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo-->
+<hr color="purple">
+{% for post in object_list %}
+    ID posta: {{post.pk}}<br/>
+    Naslov: {{post.naslov}}<br/>
+    Autor: {{post.autor}}<br/>
+    Kategorija: {{post.kategorija}}<br/>
+    Datum: {{post.datum}}<br/>
+    Kategorija: {{post.kategorija}}<br/>
+    Kategorija: <a href="{% url 'kategorija' post.kategorija %}">{{post.kategorija}}</a><br/>
+    Odlomak: {{post.snippet}}<br/>
+    Sadrzaj: {{post.sadrzaj|safe|slice:":200"}}<br/>
+
+<div class="container">
+    <table>
+        <tr>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
+         <td><a href= "{% url 'detaljna' post.pk %}" class="btn btn-success">KLIKNITE NA OVO DUGME DA VIDITE CEO SADRZAJ POSTA</a></td>
+            {% if user.is_authenticated %}
+            <td align="right"><a class="btn btn-warning" href="{% url 'azuriraj-post' post.pk %}">AZURIRAJ</a></td>
+            <td align="right"> <a class="btn btn-danger" href="{% url 'obrisi-post' post.pk %}">OBRISI</a></td>
+            {% endif %}
+        </tr>
+        </table>
+</div>
+
+<hr>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+{# PAGINIRACEMO SPISAK POSTOVA DA SE PRIKAZUJU PO PET KOMADA NA STRANICI #}
+{% if is_paginated %}
+<ul class="pagination">
+{% if page_obj.has_previous %}
+    <li>
+        <span><a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">PRETHODNA</a></span>
+    </li>
+{% endif %}
+    <li class="">
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+    </li>
+{% if page_obj.has_next %}
+    <li>
+        <span><a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">SLEDECA</a></span>
+    </li>
+{% endif %}
+</ul>
+{% else %}
+    <h3>Your File Exam</h3>
+    <p>File not yet available</p>
+{% endif %}
+
+
+<!--ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo-->
+
+<span><a href="?page=1">&laquo PRVA</a></span>
+{% if page_obj.has_previous  %}
+<span><a href="?page={{ page_obj.previous_page_number }}">PRETHODNA</a></span>
+{% endif %}
+{% if page_obj.has_next %}
+<span><a href="?page={{ page_obj.next_page_number  }}">SLEDECA</a></span>
+
+{% endif %}
+<span><a href="?page={{ page_obj.paginator.num_pages }}">ZADNJA</a></span>
+
+<!--oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo-->
+
+
+    {%endblock%}
+</body>
+</html>

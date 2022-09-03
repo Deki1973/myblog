@@ -1,0 +1,19 @@
+{% extends 'blog1/osnova.html' %}
+{%block title%}KATEGORIJE POSTOVA{%endblock%}
+{%block content%}
+
+
+
+<h1>Vesti iz izabrane kategorije:</h1><br/>
+{% if kateg_postovi %}
+<h1>{{kateg}}</h1><br/>
+{% for k in kateg_postovi %}
+<a href="{%url 'detaljna' k.pk %}">{{k.naslov}}</a> od {{k.autor}}, postavljen {{k.datum}}<br/>
+{% endfor %}
+<br/>
+{%else%}
+<h1>Nema vesti iz izabrane kategorije.</h1>
+{%endif%}
+
+
+{%endblock%}

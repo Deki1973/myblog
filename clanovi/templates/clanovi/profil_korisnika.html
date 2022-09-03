@@ -1,0 +1,19 @@
+{% extends 'blog1/osnova.html' %}
+{%block content%}
+{% load static %}
+<h1>PROFIL KORISNIKA</h1>
+{% if user.korisnickiprofil.profil_slika %}
+<h1>IMA SLIKE</h1>
+<img src={{user.korisnickiprofil.profil_slika.url }}>
+{% else %}
+<img src="{% static 'theblog/images/difoltna.PNG' %}">
+{% endif %}
+{{user.first_name}} {{user.last_name}}<br/>
+Email: {{user.email}}<br/>
+{{page_user.bio}}<br/>
+{{page_user.linkedin_url}}<br/>
+{{page_user.fb_url}}<br/>
+{{page_user.twitter_url}}<br/>
+
+
+{%endblock%}

@@ -1,0 +1,16 @@
+{% extends 'blog1/osnova.html' %}
+{% block title%} EDIT PROFILE PAGE {%endblock%}
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Edit Profile Page</h1><br/><br/>
+<div class="form-group">
+    <form method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button class="btn btn-secondary">SNIMI</button>
+    </form>
+</div>
+{%else%}
+<h1>Morate se prijaviti na sistem. Pristup odbijen.</h1>
+{%endif%}
+{% endblock %}
